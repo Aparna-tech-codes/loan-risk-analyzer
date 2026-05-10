@@ -1,0 +1,33 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+build
+
+# Turbo
+.turbo
+
+# Env files
+.env
+.env.local
+
+# Logs
+logs
+*.log
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Coverage
+coverage
+
+# TypeScript
+*.tsbuildinfo

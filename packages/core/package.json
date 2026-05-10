@@ -1,0 +1,15 @@
+{
+  "name": "@loan-risk/core",
+  "version": "1.0.0",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@loan-risk/logger": "workspace:*"
+  }
+}
