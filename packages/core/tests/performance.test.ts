@@ -1,82 +1,56 @@
 import {
+  describe,
+  it,
+  expect,
+} from "vitest";
+
+import {
   calculateRisk,
-  RiskRule,
 } from "../src";
 
-async function run() {
+describe(
+  "Performance Test",
+  () => {
 
-  const applicant = {
+    it(
+      "should process request quickly",
 
-    fullName: "Aparna Nikam",
+      async () => {
 
-    age: 30,
+        const start =
+          performance.now();
 
-    monthlyIncome: 80000,
+        await calculateRisk({
+          fullName: "Aparna",
 
-    monthlyEMI: 15000,
+          age: 28,
 
-    requestedLoanAmount: 500000,
+          monthlyIncome: 90000,
 
-    creditScore: 750,
+          monthlyEMI: 15000,
 
-  };
+          requestedLoanAmount:
+            500000,
 
-  const slowRule1: RiskRule = {
+          creditScore: 760,
 
-    name: "API_1",
+          employmentType:
+            "SALARIED",
+        });
 
-  priority: "NORMAL",
+        const end =
+          performance.now();
 
-    async execute() {
+        const duration =
+          end - start;
 
-      await new Promise((r) =>
-        setTimeout(r, 3000)
-      );
+        console.log(
+          `Execution Time: ${duration}ms`
+        );
 
-      return {
-        scoreImpact: -5,
-      };
-    },
-  };
-
-  const slowRule2: RiskRule = {
-
-    name: "API_2",
-
-  priority: "NORMAL",
-
-    async execute() {
-
-      await new Promise((r) =>
-        setTimeout(r, 3000)
-      );
-
-      return {
-        scoreImpact: -10,
-      };
-    },
-  };
-
-  console.time("ENGINE");
-
-  const result =
-    await calculateRisk(
-      applicant,
-
-      undefined,
-
-      {
-        customRules: [
-          slowRule1,
-          slowRule2,
-        ],
+        expect(duration)
+          .toBeLessThan(1000);
       }
     );
-
-  console.timeEnd("ENGINE");
-
-  console.log(result);
-
-}
-
-run();
+  }
+);

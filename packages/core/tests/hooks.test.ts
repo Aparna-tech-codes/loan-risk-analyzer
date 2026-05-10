@@ -1,73 +1,44 @@
-import {
-  calculateRisk,
-  HookContext,
-} from "../src";
+import { describe, it, expect } from "vitest";
 
-async function run() {
+import { calculateRisk } from "../src";
 
-  const applicant = {
-    fullName: "Aparna Nikam",
+describe("Hooks System", () => {
 
-    age: 28,
+  it("should execute hooks", async () => {
 
-    monthlyIncome: 90000,
+    let beforeCalled = false;
 
-    monthlyEMI: 15000,
+    let afterCalled = false;
 
-    requestedLoanAmount: 500000,
-
-    creditScore: 760,
-
-    employmentType: "SALARIED" as const,
-  };
-
-  const result = await calculateRisk(
-    applicant,
-
-    undefined,
-
-    {
-      hooks: {
-
-        beforeCalculate: async (
-          ctx: HookContext
-        ) => {
-
-          console.log(
-            "ENGINE STARTED"
-          );
-
-          console.log(
-            "Applicant:",
-            ctx.applicant.fullName
-          );
-        },
-
-        afterCalculate: async (
-          ctx: HookContext
-        ) => {
-
-          console.log(
-            "ENGINE COMPLETED"
-          );
-
-          console.log(
-            "FINAL RESULT:"
-          );
-
-          console.log(
-            ctx.result
-          );
-        },
+    await calculateRisk(
+      {
+        fullName: "Aparna",
+        age: 28,
+        monthlyIncome: 90000,
+        monthlyEMI: 15000,
+        requestedLoanAmount: 500000,
+        creditScore: 760,
+        employmentType: "SALARIED",
       },
-    }
-  );
 
-  console.log(
-    "\nFINAL RESULT\n"
-  );
+      undefined,
 
-  console.log(result);
-}
+      {
+        hooks: {
 
-run();
+          beforeCalculate() {
+            beforeCalled = true;
+          },
+
+          afterCalculate() {
+            afterCalled = true;
+          },
+        },
+      }
+    );
+
+    expect(beforeCalled).toBe(true);
+
+    expect(afterCalled).toBe(true);
+  });
+});

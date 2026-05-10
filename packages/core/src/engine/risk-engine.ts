@@ -30,9 +30,14 @@ export async function calculateRisk(
 ): Promise<RiskResult> {
 const logger = options?.logger;
   let score = 100;
+
 logger?.info(
   "Risk calculation started"
 );
+
+await options?.hooks?.beforeCalculate?.({
+  applicant,
+});
   const reasons: string[] = [];
 
   const explanations: RuleExplanation[] = [];
@@ -118,6 +123,7 @@ logger?.debug(
   // RUN NORMAL RULES IN PARALLEL
   // ==============================
 
+
   const results =
     await Promise.all(
     
@@ -201,20 +207,28 @@ logger?.debug(
   // ==============================
   // FINAL RESULT
   // ==============================
-  logger?.info(
+ logger?.info(
   `Risk calculation completed with score ${score}`
 );
-  return {
-    score,
 
-    riskLevel,
+const finalResult = {
+  score,
 
-    approved:
-      score >=
-      config.minimumApprovalScore,
+  riskLevel,
 
-    reasons,
+  approved:
+    score >=
+    config.minimumApprovalScore,
 
-    explanations,
-  };
+  reasons,
+
+  explanations,
+};
+
+await options?.hooks?.afterCalculate?.({
+  applicant,
+  result: finalResult,
+});
+
+return finalResult;
 }
