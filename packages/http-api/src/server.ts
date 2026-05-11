@@ -2,7 +2,9 @@ import express from "express";
 
 import cors from "cors";
 
-import dotenv from "dotenv";
+import dotenvSafe from "dotenv-safe";
+
+dotenvSafe.config();
 
 import { calculateRisk } from "@loan-risk/core";
 
@@ -11,8 +13,6 @@ import { Logger } from "@loan-risk/logger";
 import swaggerUi from "swagger-ui-express";
 
 import { swaggerSpec } from "./swagger";
-
-dotenv.config();
 
 const app = express();
 
