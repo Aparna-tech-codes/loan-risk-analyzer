@@ -13,12 +13,7 @@ export interface HookContext {
 }
 
 export interface EngineHooks {
+  beforeCalculate?: (ctx: HookContext) => Promise<void> | void;
 
-  beforeCalculate?: (
-    ctx: HookContext
-  ) => Promise<void> | void;
-
-  afterCalculate?: (
-    ctx: HookContext
-  ) => Promise<void> | void;
+  afterCalculate?: (ctx: HookContext) => Promise<void> | void;
 }

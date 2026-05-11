@@ -6,22 +6,17 @@ export const dtiRule: RiskRule = {
   priority: "NORMAL",
 
   async execute(applicant) {
+    const existingEMI = applicant.existingEMI ?? 0;
 
-    const existingEMI =
-      applicant.existingEMI ?? 0;
+    const monthlyIncome = applicant.monthlyIncome ?? 1;
 
-    const monthlyIncome =
-      applicant.monthlyIncome ?? 1;
-
-    const dti =
-      (existingEMI / monthlyIncome) * 100;
+    const dti = (existingEMI / monthlyIncome) * 100;
 
     if (dti > 50) {
       return {
         scoreImpact: -25,
 
-        reason:
-          "Debt-to-income ratio too high",
+        reason: "Debt-to-income ratio too high",
       };
     }
 
@@ -29,16 +24,14 @@ export const dtiRule: RiskRule = {
       return {
         scoreImpact: -10,
 
-        reason:
-          "Moderate debt-to-income ratio",
+        reason: "Moderate debt-to-income ratio",
       };
     }
 
     return {
       scoreImpact: 5,
 
-      reason:
-        "Healthy debt-to-income ratio",
+      reason: "Healthy debt-to-income ratio",
     };
   },
 };

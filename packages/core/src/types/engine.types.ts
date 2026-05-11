@@ -5,7 +5,6 @@ import { EngineHooks } from "./hook.types";
 import { Logger } from "@loan-risk/logger";
 
 export interface EngineOptions {
-
   customRules?: RiskRule[];
 
   hooks?: EngineHooks;

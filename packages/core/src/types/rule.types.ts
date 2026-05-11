@@ -1,13 +1,8 @@
-import {
-  LoanApplicant,
-} from "./risk.types";
+import { LoanApplicant } from "./risk.types";
 
-import {
-  RiskConfig,
-} from "./risk-config.types";
+import { RiskConfig } from "./risk-config.types";
 
 export interface RuleResult {
-
   scoreImpact: number;
 
   reject?: boolean;
@@ -16,15 +11,9 @@ export interface RuleResult {
 }
 
 export interface RiskRule {
-
   name: string;
 
-  priority?:
-    | "BLOCKER"
-    | "NORMAL";
+  priority?: "BLOCKER" | "NORMAL";
 
-  execute(
-    applicant: LoanApplicant,
-    config: RiskConfig
-  ): Promise<RuleResult>;
+  execute(applicant: LoanApplicant, config: RiskConfig): Promise<RuleResult>;
 }

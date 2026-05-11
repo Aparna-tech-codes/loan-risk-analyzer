@@ -1,56 +1,33 @@
-import {
-  describe,
-  it,
-  expect,
-} from "vitest";
+import { describe, it, expect } from "vitest";
 
-import {
-  calculateRisk,
-} from "../src";
+import { calculateRisk } from "../src";
 
-describe(
-  "Performance Test",
-  () => {
+describe("Performance Test", () => {
+  it("should process request quickly", async () => {
+    const start = performance.now();
 
-    it(
-      "should process request quickly",
+    await calculateRisk({
+      fullName: "Aparna",
 
-      async () => {
+      age: 28,
 
-        const start =
-          performance.now();
+      monthlyIncome: 90000,
 
-        await calculateRisk({
-          fullName: "Aparna",
+      monthlyEMI: 15000,
 
-          age: 28,
+      requestedLoanAmount: 500000,
 
-          monthlyIncome: 90000,
+      creditScore: 760,
 
-          monthlyEMI: 15000,
+      employmentType: "SALARIED",
+    });
 
-          requestedLoanAmount:
-            500000,
+    const end = performance.now();
 
-          creditScore: 760,
+    const duration = end - start;
 
-          employmentType:
-            "SALARIED",
-        });
+    console.log(`Execution Time: ${duration}ms`);
 
-        const end =
-          performance.now();
-
-        const duration =
-          end - start;
-
-        console.log(
-          `Execution Time: ${duration}ms`
-        );
-
-        expect(duration)
-          .toBeLessThan(1000);
-      }
-    );
-  }
-);
+    expect(duration).toBeLessThan(1000);
+  });
+});

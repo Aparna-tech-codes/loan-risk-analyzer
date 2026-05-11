@@ -6,7 +6,6 @@
     "dev": "ts-node src/server.ts",
     "build": "tsc"
   },
-  
   "dependencies": {
     "@loan-risk/core": "workspace:*",
     "@loan-risk/logger": "workspace:*",

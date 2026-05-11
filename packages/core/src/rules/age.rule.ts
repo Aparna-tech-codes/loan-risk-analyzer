@@ -6,7 +6,6 @@ export const ageRule: RiskRule = {
   priority: "NORMAL",
 
   async execute(applicant, config) {
-
     if (!applicant.age) {
       return {
         scoreImpact: -20,

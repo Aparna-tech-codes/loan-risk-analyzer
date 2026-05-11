@@ -1,15 +1,10 @@
 import { describe, it, expect } from "vitest";
 
-import {
-  createRiskEngine,
-} from "../src";
+import { createRiskEngine } from "../src";
 
 describe("Plugin System", () => {
-
   it("should register plugins", () => {
-
-    const engine =
-      createRiskEngine();
+    const engine = createRiskEngine();
 
     expect(engine).toBeDefined();
   });

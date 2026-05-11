@@ -1,17 +1,8 @@
+import { LoanApplicant, RiskResult } from "../types/risk.types";
 
+import { EngineOptions } from "../types/engine.types";
 
-import {
-  LoanApplicant,
-  RiskResult,
-} from "../types/risk.types";
-
-import {
-  EngineOptions,
-} from "../types/engine.types";
-
-import {
-  RiskRule,
-} from "../types/rule.types";
+import { RiskRule } from "../types/rule.types";
 
 import { RiskConfig } from "../types/risk-config.types";
 
@@ -26,18 +17,16 @@ export async function calculateRisk(
 
   config: RiskConfig = defaultRiskConfig,
 
-  options?: EngineOptions
+  options?: EngineOptions,
 ): Promise<RiskResult> {
-const logger = options?.logger;
+  const logger = options?.logger;
   let score = 100;
 
-logger?.info(
-  "Risk calculation started"
-);
+  logger?.info("Risk calculation started");
 
-await options?.hooks?.beforeCalculate?.({
-  applicant,
-});
+  await options?.hooks?.beforeCalculate?.({
+    applicant,
+  });
   const reasons: string[] = [];
 
   const explanations: RuleExplanation[] = [];
@@ -51,55 +40,36 @@ await options?.hooks?.beforeCalculate?.({
   // BLOCKER RULES
   // ==============================
 
-  const blockerRules =
-    allRules.filter(
-      (rule) =>
-        rule.priority === "BLOCKER"
-    );
+  const blockerRules = allRules.filter((rule) => rule.priority === "BLOCKER");
 
   // ==============================
   // NORMAL RULES
   // ==============================
 
-  const normalRules =
-    allRules.filter(
-      (rule) =>
-        rule.priority !== "BLOCKER"
-    );
+  const normalRules = allRules.filter((rule) => rule.priority !== "BLOCKER");
 
   // ==============================
   // RUN BLOCKER RULES FIRST
   // ==============================
 
   for (const rule of blockerRules) {
-logger?.debug(
-  `Running blocker rule: ${rule.name}`
-);
-    const result =
-      await rule.execute(
-        applicant,
-        config
-      );
+    logger?.debug(`Running blocker rule: ${rule.name}`);
+    const result = await rule.execute(applicant, config);
 
     explanations.push({
       rule: rule.name,
 
-      impact:
-        result.scoreImpact,
+      impact: result.scoreImpact,
 
-      reason:
-        result.reason,
+      reason: result.reason,
     });
 
     if (result.reason) {
       reasons.push(result.reason);
     }
-     logger?.warn(
-  `Application rejected by ${rule.name}`
-);
+    logger?.warn(`Application rejected by ${rule.name}`);
     // FAIL FAST
     if (result.reject === true) {
-
       return {
         score: 0,
 
@@ -107,10 +77,7 @@ logger?.debug(
 
         approved: false,
 
-        reasons: [
-          "APPLICATION REJECTED",
-          ...reasons,
-        ],
+        reasons: ["APPLICATION REJECTED", ...reasons],
 
         explanations,
       };
@@ -123,54 +90,36 @@ logger?.debug(
   // RUN NORMAL RULES IN PARALLEL
   // ==============================
 
+  const results = await Promise.all(
+    normalRules.map(async (rule) => {
+      logger?.debug(`Running rule: ${rule.name}`);
+      const result = await rule.execute(applicant, config);
 
-  const results =
-    await Promise.all(
-    
-      normalRules.map(
-        async (rule) => {
-logger?.debug(
-  `Running rule: ${rule.name}`
-);
-          const result =
-            await rule.execute(
-              applicant,
-              config
-            );
+      return {
+        ruleName: rule.name,
 
-          return {
-            ruleName:
-              rule.name,
-
-            result,
-          };
-        }
-      )
-    );
+        result,
+      };
+    }),
+  );
 
   // ==============================
   // PROCESS RESULTS
   // ==============================
 
   for (const item of results) {
-
-    score +=
-      item.result.scoreImpact;
+    score += item.result.scoreImpact;
 
     explanations.push({
       rule: item.ruleName,
 
-      impact:
-        item.result.scoreImpact,
+      impact: item.result.scoreImpact,
 
-      reason:
-        item.result.reason,
+      reason: item.result.reason,
     });
 
     if (item.result.reason) {
-      reasons.push(
-        item.result.reason
-      );
+      reasons.push(item.result.reason);
     }
   }
 
@@ -190,45 +139,35 @@ logger?.debug(
   // RISK LEVEL
   // ==============================
 
-  let riskLevel:
-    | "LOW"
-    | "MEDIUM"
-    | "HIGH" = "LOW";
+  let riskLevel: "LOW" | "MEDIUM" | "HIGH" = "LOW";
 
   if (score < 50) {
-
     riskLevel = "HIGH";
-
   } else if (score < 75) {
-
     riskLevel = "MEDIUM";
   }
 
   // ==============================
   // FINAL RESULT
   // ==============================
- logger?.info(
-  `Risk calculation completed with score ${score}`
-);
+  logger?.info(`Risk calculation completed with score ${score}`);
 
-const finalResult = {
-  score,
+  const finalResult = {
+    score,
 
-  riskLevel,
+    riskLevel,
 
-  approved:
-    score >=
-    config.minimumApprovalScore,
+    approved: score >= config.minimumApprovalScore,
 
-  reasons,
+    reasons,
 
-  explanations,
-};
+    explanations,
+  };
 
-await options?.hooks?.afterCalculate?.({
-  applicant,
-  result: finalResult,
-});
+  await options?.hooks?.afterCalculate?.({
+    applicant,
+    result: finalResult,
+  });
 
-return finalResult;
+  return finalResult;
 }

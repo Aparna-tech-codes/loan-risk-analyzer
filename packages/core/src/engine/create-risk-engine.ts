@@ -8,13 +8,9 @@ import { RiskConfig } from "../types/risk-config.types";
 
 import { RiskRule } from "../types/rule.types";
 
-import {
-  EngineHooks,
-  HookContext,
-} from "../types/hook.types";
+import { EngineHooks, HookContext } from "../types/hook.types";
 
 export function createRiskEngine() {
-
   const plugins: RiskPlugin[] = [];
 
   const customRules: RiskRule[] = [];
@@ -22,20 +18,15 @@ export function createRiskEngine() {
   const hooks: EngineHooks = {};
 
   return {
-
     // =========================
     // REGISTER PLUGIN
     // =========================
 
     use(plugin: RiskPlugin) {
-
       plugins.push(plugin);
 
       if (plugin.rules) {
-
-        customRules.push(
-          ...plugin.rules
-        );
+        customRules.push(...plugin.rules);
       }
 
       return this;
@@ -45,15 +36,10 @@ export function createRiskEngine() {
     // REGISTER HOOKS
     // =========================
 
-    setHooks(
-      engineHooks: EngineHooks
-    ) {
+    setHooks(engineHooks: EngineHooks) {
+      hooks.beforeCalculate = engineHooks.beforeCalculate;
 
-      hooks.beforeCalculate =
-        engineHooks.beforeCalculate;
-
-      hooks.afterCalculate =
-        engineHooks.afterCalculate;
+      hooks.afterCalculate = engineHooks.afterCalculate;
 
       return this;
     },
@@ -65,57 +51,43 @@ export function createRiskEngine() {
     async analyze(
       applicant: LoanApplicant,
 
-      config?: RiskConfig
+      config?: RiskConfig,
     ) {
-
       // BEFORE HOOK
-      if (
-        hooks.beforeCalculate
-      ) {
-
+      if (hooks.beforeCalculate) {
         const beforeContext: HookContext = {
           applicant,
 
-          config:
-            config as RiskConfig,
+          config: config as RiskConfig,
         };
 
-        await hooks.beforeCalculate(
-          beforeContext
-        );
+        await hooks.beforeCalculate(beforeContext);
       }
 
       // MAIN ENGINE
-      const result =
-        await calculateRisk(
-          applicant,
+      const result = await calculateRisk(
+        applicant,
 
-          config,
+        config,
 
-          {
-            customRules,
+        {
+          customRules,
 
-            hooks,
-          }
-        );
+          hooks,
+        },
+      );
 
       // AFTER HOOK
-      if (
-        hooks.afterCalculate
-      ) {
-
+      if (hooks.afterCalculate) {
         const afterContext: HookContext = {
           applicant,
 
-          config:
-            config as RiskConfig,
+          config: config as RiskConfig,
 
           result,
         };
 
-        await hooks.afterCalculate(
-          afterContext
-        );
+        await hooks.afterCalculate(afterContext);
       }
 
       return result;
@@ -126,7 +98,6 @@ export function createRiskEngine() {
     // =========================
 
     getPlugins() {
-
       return plugins;
     },
   };

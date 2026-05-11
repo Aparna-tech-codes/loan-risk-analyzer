@@ -3,9 +3,7 @@ import { describe, it, expect } from "vitest";
 import { calculateRisk } from "../src";
 
 describe("Loan Risk Analyzer", () => {
-
   it("should calculate loan risk", async () => {
-
     const result = await calculateRisk({
       fullName: "Aparna",
       age: 28,

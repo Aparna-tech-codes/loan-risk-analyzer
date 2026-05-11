@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
 
   "compilerOptions": {
-
     "rootDir": ".",
 
     "outDir": "dist",
@@ -24,8 +23,5 @@
     "ignoreDeprecations": "5.0"
   },
 
-  "include": [
-    "src",
-    "test.ts"
-  ]
+  "include": ["src", "test.ts"]
 }

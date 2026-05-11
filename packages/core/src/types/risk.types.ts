@@ -1,9 +1,6 @@
 import { RuleExplanation } from "./explanation.types";
 
-export type RiskLevel =
-  | "LOW"
-  | "MEDIUM"
-  | "HIGH";
+export type RiskLevel = "LOW" | "MEDIUM" | "HIGH";
 
 export interface LoanApplicant {
   fullName?: string;
@@ -20,9 +17,7 @@ export interface LoanApplicant {
 
   creditScore?: number;
 
-  employmentType?:
-    | "SALARIED"
-    | "SELF_EMPLOYED";
+  employmentType?: "SALARIED" | "SELF_EMPLOYED";
 
   phone?: string;
 

@@ -3,9 +3,7 @@ import { describe, it, expect } from "vitest";
 import { calculateRisk } from "../src";
 
 describe("Hooks System", () => {
-
   it("should execute hooks", async () => {
-
     let beforeCalled = false;
 
     let afterCalled = false;
@@ -25,7 +23,6 @@ describe("Hooks System", () => {
 
       {
         hooks: {
-
           beforeCalculate() {
             beforeCalled = true;
           },
@@ -34,7 +31,7 @@ describe("Hooks System", () => {
             afterCalled = true;
           },
         },
-      }
+      },
     );
 
     expect(beforeCalled).toBe(true);

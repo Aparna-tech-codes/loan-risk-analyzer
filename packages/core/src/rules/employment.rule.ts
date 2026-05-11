@@ -4,16 +4,11 @@ export const employmentRule: RiskRule = {
   name: "EMPLOYMENT_RULE",
 
   async execute(applicant) {
-
-    if (
-      applicant.employmentType ===
-      "SELF_EMPLOYED"
-    ) {
+    if (applicant.employmentType === "SELF_EMPLOYED") {
       return {
         scoreImpact: -20,
 
-        reason:
-          "Self-employed risk adjustment",
+        reason: "Self-employed risk adjustment",
       };
     }
 

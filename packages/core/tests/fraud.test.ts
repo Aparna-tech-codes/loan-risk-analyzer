@@ -1,45 +1,25 @@
-import {
-  describe,
-  it,
-  expect,
-} from "vitest";
+import { describe, it, expect } from "vitest";
 
-import {
-  calculateRisk,
-} from "../src";
+import { calculateRisk } from "../src";
 
-describe(
-  "Fraud Detection",
-  () => {
+describe("Fraud Detection", () => {
+  it("should reject fraudulent applicant", async () => {
+    const result = await calculateRisk({
+      fullName: "Fraud User",
 
-    it(
-      "should reject fraudulent applicant",
+      age: 19,
 
-      async () => {
+      monthlyIncome: 10000,
 
-        const result =
-          await calculateRisk({
-            fullName: "Fraud User",
+      monthlyEMI: 9000,
 
-            age: 19,
+      requestedLoanAmount: 5000000,
 
-            monthlyIncome: 10000,
+      creditScore: 300,
 
-            monthlyEMI: 9000,
+      employmentType: "SALARIED",
+    });
 
-            requestedLoanAmount:
-              5000000,
-
-            creditScore: 300,
-
-            employmentType:
-              "SALARIED",
-          });
-
-        expect(
-          result.approved
-        ).toBe(false);
-      }
-    );
-  }
-);
+    expect(result.approved).toBe(false);
+  });
+});

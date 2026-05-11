@@ -6,8 +6,4 @@ import { creditScoreRule } from "./credit-score.rule";
 import { emiRule } from "./emi.rule";
 import { fraudRule } from "./fraud.rule";
 
-export const defaultRules = [
-  creditScoreRule,
-  emiRule,
-  fraudRule,
-];
+export const defaultRules = [creditScoreRule, emiRule, fraudRule];

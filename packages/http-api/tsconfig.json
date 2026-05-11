@@ -2,9 +2,6 @@
   "extends": "../../tsconfig.base.json",
 
   "compilerOptions": {
-
-   
-
     "module": "CommonJS",
 
     "moduleResolution": "Node",
@@ -19,10 +16,8 @@
 
     "types": ["node"],
 
-   "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0"
   },
 
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

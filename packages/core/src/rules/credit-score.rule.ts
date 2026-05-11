@@ -6,7 +6,6 @@ export const creditScoreRule: RiskRule = {
   priority: "BLOCKER",
 
   async execute(applicant, config) {
-
     if (!applicant.creditScore) {
       return {
         scoreImpact: -30,
@@ -14,10 +13,7 @@ export const creditScoreRule: RiskRule = {
       };
     }
 
-    if (
-      applicant.creditScore <
-      config.minimumCreditScore
-    ) {
+    if (applicant.creditScore < config.minimumCreditScore) {
       return {
         scoreImpact: -100,
         reject: true,

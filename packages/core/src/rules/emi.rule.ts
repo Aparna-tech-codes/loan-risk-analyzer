@@ -6,20 +6,14 @@ export const emiRule: RiskRule = {
   priority: "NORMAL",
 
   async execute(applicant) {
-
-    if (
-      applicant.monthlyIncome == null ||
-      applicant.monthlyEMI == null
-    ) {
+    if (applicant.monthlyIncome == null || applicant.monthlyEMI == null) {
       return {
         scoreImpact: -20,
         reason: "Income or EMI missing",
       };
     }
 
-    const ratio =
-      applicant.monthlyEMI /
-      applicant.monthlyIncome;
+    const ratio = applicant.monthlyEMI / applicant.monthlyIncome;
 
     if (ratio > 0.6) {
       return {

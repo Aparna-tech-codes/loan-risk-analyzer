@@ -3,6 +3,7 @@
 A modern TypeScript-based loan risk analysis engine with plugin architecture, hooks system, HTTP API support, and extensible rule processing.
 
 Built with:
+
 - TypeScript
 - Node.js
 - PNPM Workspace
@@ -63,6 +64,7 @@ loan-risk-analyzer/
 Core loan risk analysis engine.
 
 Features:
+
 - Rule engine
 - Risk scoring
 - Plugin support
@@ -76,6 +78,7 @@ Features:
 Reusable logger package.
 
 Features:
+
 - Info logs
 - Warning logs
 - Error logs
@@ -88,6 +91,7 @@ Features:
 Express-based HTTP API for exposing the analyzer.
 
 Features:
+
 - REST API
 - Health endpoint
 - Risk analysis endpoint
@@ -149,26 +153,23 @@ pnpm coverage
 ## Basic Usage
 
 ```ts
-import {
-  calculateRisk,
-} from "@loan-risk/core";
+import { calculateRisk } from "@loan-risk/core";
 
-const result =
-  await calculateRisk({
-    fullName: "Aparna Nikam",
+const result = await calculateRisk({
+  fullName: "Aparna Nikam",
 
-    age: 28,
+  age: 28,
 
-    monthlyIncome: 90000,
+  monthlyIncome: 90000,
 
-    monthlyEMI: 15000,
+  monthlyEMI: 15000,
 
-    requestedLoanAmount: 500000,
+  requestedLoanAmount: 500000,
 
-    creditScore: 760,
+  creditScore: 760,
 
-    employmentType: "SALARIED",
-  });
+  employmentType: "SALARIED",
+});
 
 console.log(result);
 ```
@@ -192,33 +193,19 @@ console.log(result);
 # Hooks Example
 
 ```ts
-import {
-  calculateRisk,
-} from "@loan-risk/core";
+import { calculateRisk } from "@loan-risk/core";
 
-await calculateRisk(
-  applicant,
-  undefined,
-  {
-    hooks: {
-      beforeCalculate: async (
-        ctx
-      ) => {
-        console.log(
-          "Started"
-        );
-      },
-
-      afterCalculate: async (
-        ctx
-      ) => {
-        console.log(
-          ctx.result
-        );
-      },
+await calculateRisk(applicant, undefined, {
+  hooks: {
+    beforeCalculate: async (ctx) => {
+      console.log("Started");
     },
-  }
-);
+
+    afterCalculate: async (ctx) => {
+      console.log(ctx.result);
+    },
+  },
+});
 ```
 
 ---
@@ -226,12 +213,9 @@ await calculateRisk(
 # Plugin Example
 
 ```ts
-import {
-  createRiskEngine,
-} from "@loan-risk/core";
+import { createRiskEngine } from "@loan-risk/core";
 
-const engine =
-  createRiskEngine();
+const engine = createRiskEngine();
 
 engine.use({
   name: "CUSTOM_PLUGIN",
@@ -323,11 +307,13 @@ pnpm -r exec tsc --noEmit
 # Automated Testing
 
 This project uses:
+
 - Vitest
 - TypeScript
 - Workspace testing
 
 Current tests:
+
 - Core engine tests
 - Hooks tests
 - Plugin tests
@@ -341,6 +327,7 @@ Current tests:
 GitHub Actions workflow included.
 
 Automatically runs:
+
 - Install
 - Type checking
 - Build

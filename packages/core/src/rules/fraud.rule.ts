@@ -6,7 +6,6 @@ export const fraudRule: RiskRule = {
   priority: "BLOCKER",
 
   async execute(applicant) {
-
     if (!applicant.fullName) {
       return {
         scoreImpact: -20,
@@ -14,18 +13,11 @@ export const fraudRule: RiskRule = {
       };
     }
 
-    const suspiciousNames = [
-      "test",
-      "fake",
-      "fraud",
-    ];
+    const suspiciousNames = ["test", "fake", "fraud"];
 
-    const isFraud =
-      suspiciousNames.some((word) =>
-        applicant.fullName!
-          .toLowerCase()
-          .includes(word)
-      );
+    const isFraud = suspiciousNames.some((word) =>
+      applicant.fullName!.toLowerCase().includes(word),
+    );
 
     if (isFraud) {
       return {
