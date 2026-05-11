@@ -1,27 +1,80 @@
-# dependencies
+# =========================
+# Node Modules
+# =========================
 node_modules
 
-# builds
+# =========================
+# Build Output
+# =========================
 dist
 build
 coverage
-
-# turbo
+.vite
 .turbo
 
-# env
+# =========================
+# Logs
+# =========================
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# =========================
+# Environment Files
+# =========================
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# logs
-*.log
-
-# OS
+# =========================
+# OS Files
+# =========================
 .DS_Store
 Thumbs.db
 
-# vscode
-.vscode
+# =========================
+# IDE
+# =========================
+.vscode/*
+!.vscode/extensions.json
+.idea
 
-# typescript
+# =========================
+# TypeScript
+# =========================
 *.tsbuildinfo
+
+# =========================
+# Generated JS / Declaration Files
+# =========================
+*.js
+*.d.ts
+*.js.map
+
+# Except source configs if needed
+!eslint.config.js
+
+# =========================
+# Docker
+# =========================
+.docker
+
+# =========================
+# Test Coverage
+# =========================
+coverage/
+
+# =========================
+# Turbo
+# =========================
+.turbo/
+
+# =========================
+# Misc
+# =========================
+tmp
+temp

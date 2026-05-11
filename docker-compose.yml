@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  loan-risk-api:
+    build:
+      context: .
+
+      dockerfile: packages/http-api/Dockerfile
+
+    ports:
+      - "4000:4000"
+
+    environment:
+      PORT: 4000

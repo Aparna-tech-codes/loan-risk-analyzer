@@ -8,6 +8,10 @@ import { calculateRisk } from "@loan-risk/core";
 
 import { Logger } from "@loan-risk/logger";
 
+import swaggerUi from "swagger-ui-express";
+
+import { swaggerSpec } from "./swagger";
+
 dotenv.config();
 
 const app = express();
@@ -19,7 +23,23 @@ const logger = new Logger({
 app.use(cors());
 
 app.use(express.json());
+app.use(
+  "/docs",
 
+  swaggerUi.serve,
+
+  swaggerUi.setup(swaggerSpec),
+);
+
+/**
+ * @swagger
+ * /health:
+ *   get:
+ *     summary: Health check endpoint
+ *     responses:
+ *       200:
+ *         description: API running successfully
+ */
 app.get("/health", (_req, res) => {
   res.json({
     success: true,
@@ -27,6 +47,30 @@ app.get("/health", (_req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * /analyze:
+ *   post:
+ *     summary: Analyze loan applicant risk
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fullName:
+ *                 type: string
+ *               age:
+ *                 type: number
+ *               monthlyIncome:
+ *                 type: number
+ *               creditScore:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Risk analysis result
+ */
 app.post(
   "/analyze",
 
