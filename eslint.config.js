@@ -21,16 +21,11 @@ module.exports = [
     rules: {
       "@typescript-eslint/no-explicit-any": "warn",
 
-      "@typescript-eslint/no-unused-vars":
-        "warn",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
 
   {
-    ignores: [
-      "dist/**",
-      "coverage/**",
-      "node_modules/**",
-    ],
+    ignores: ["dist/**", "coverage/**", "node_modules/**"],
   },
 ];
