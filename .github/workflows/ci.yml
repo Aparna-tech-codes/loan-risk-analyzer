@@ -1,45 +1,38 @@
-name: CI Pipeline
+name: CI
 
 on:
   push:
     branches:
-      - master
       - main
-
   pull_request:
-    branches:
-      - master
-      - main
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Setup PNPM
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
 
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
-      - name: Type Check
-        run: pnpm typecheck
+      - name: Install dependencies
+        run: pnpm install
 
       - name: Lint
         run: pnpm lint
 
-      - name: Run Tests
+      - name: Run tests
         run: pnpm test
 
-      - name: Build Project
+      - name: Build
         run: pnpm build
