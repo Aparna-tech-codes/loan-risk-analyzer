@@ -103,7 +103,7 @@ Features:
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/loan-risk-analyzer.git
+git clone https://github.com/Aparna-tech-codes/loan-risk-analyzer.git
 ```
 
 ---
@@ -156,7 +156,7 @@ pnpm coverage
 import { calculateRisk } from "@loan-risk/core";
 
 const result = await calculateRisk({
-  fullName: "Aparna Nikam",
+  fullName: "jhon jhon",
 
   age: 28,
 
