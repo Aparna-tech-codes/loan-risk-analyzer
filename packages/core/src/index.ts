@@ -19,3 +19,12 @@ export { defaultRiskConfig } from "./config/default-risk-config";
 export { defaultRules } from "./rules";
 export * from "./engine/create-risk-engine";
 export * from "./plugins/fraud.plugin";
+
+export * from "./engine/risk-engine";
+
+export * from "./types/risk.types";
+export * from "./types/rule.types";
+export * from "./types/engine.types";
+export * from "./types/hook.types";
+
+export * from "./plugins/fraud.plugin";

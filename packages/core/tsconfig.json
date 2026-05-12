@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
 
   "compilerOptions": {
+
     "rootDir": ".",
 
     "outDir": "dist",
@@ -20,12 +21,14 @@
 
     "skipLibCheck": true,
 
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    
+    "composite": true
   },
 
   "include": [
     "src",
-    "tests/test.ts",
+    "tests/core.test.ts",
     "tests/hooks.test.ts",
     "tests/plugin.test.ts",
     "tests/fraud.test.ts",
