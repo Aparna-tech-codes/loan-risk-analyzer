@@ -16,7 +16,8 @@
 
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+   "typecheck": "tsc -b --noEmit",
+   "lint": "eslint src --ext .ts"
   },
 
   "publishConfig": {
