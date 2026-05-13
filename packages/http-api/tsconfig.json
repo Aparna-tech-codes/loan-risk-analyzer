@@ -18,9 +18,7 @@
 
     "skipLibCheck": true,
 
-    "composite": true,
-
-    "baseUrl": "."
+    "composite": true
   },
 
   "include": ["src"],

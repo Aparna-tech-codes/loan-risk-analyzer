@@ -4,7 +4,7 @@
 
     "module": "CommonJS",
 
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
 
     "strict": true,
 
@@ -12,12 +12,16 @@
 
     "skipLibCheck": true,
 
-    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
 
-    "resolveJsonModule": true,
+    "paths": {
+      "@loan-risk/core": [
+        "packages/core/src/index.ts"
+      ],
 
-    "declaration": true,
-
-    "ignoreDeprecations": "5.0"
+      "@loan-risk/logger": [
+        "packages/logger/src/index.ts"
+      ]
+    }
   }
 }
