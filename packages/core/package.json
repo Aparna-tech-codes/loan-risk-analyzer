@@ -2,7 +2,35 @@
   "name": "@loan-risk/core",
   "version": "1.0.0",
 
+  "description": "Core TypeScript loan risk analysis engine with plugin and hooks architecture",
+
+  "license": "MIT",
+
+  "author": "Aparna Nikam",
+
+  "homepage": "https://github.com/Aparna-tech-codes/loan-risk-analyzer",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer/issues"
+  },
+
+  "keywords": [
+    "loan",
+    "risk-analysis",
+    "typescript",
+    "credit-score",
+    "risk-engine",
+    "fraud-detection",
+    "plugin-system"
+  ],
+
   "main": "./dist/index.js",
+
   "types": "./dist/index.d.ts",
 
   "exports": {
@@ -16,8 +44,8 @@
 
   "scripts": {
     "build": "tsc",
-   "typecheck": "tsc -b --noEmit",
-   "lint": "eslint src --ext .ts"
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint src --ext .ts"
   },
 
   "publishConfig": {

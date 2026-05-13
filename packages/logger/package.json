@@ -2,7 +2,33 @@
   "name": "@loan-risk/logger",
   "version": "1.0.0",
 
+  "description": "Reusable TypeScript logger package for the loan risk analyzer ecosystem",
+
+  "license": "MIT",
+
+  "author": "Aparna Nikam",
+
+  "homepage": "https://github.com/Aparna-tech-codes/loan-risk-analyzer",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer/issues"
+  },
+
+  "keywords": [
+    "logger",
+    "typescript",
+    "nodejs",
+    "logging",
+    "debugging"
+  ],
+
   "main": "./dist/index.js",
+
   "types": "./dist/index.d.ts",
 
   "exports": {
@@ -16,8 +42,8 @@
 
   "scripts": {
     "build": "tsc",
-   "typecheck": "tsc -b --noEmit",
-   "lint": "eslint src --ext .ts"
+    "typecheck": "tsc -b --noEmit",
+    "lint": "eslint src --ext .ts"
   },
 
   "publishConfig": {

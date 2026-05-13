@@ -49,14 +49,12 @@ Thumbs.db
 *.tsbuildinfo
 
 # =========================
-# Generated JS / Declaration Files
+# Build Artifacts
 # =========================
-*.js
-*.d.ts
-*.js.map
-
-# Except source configs if needed
-!eslint.config.js
+dist/
+coverage/
+.turbo/
+*.tsbuildinfo
 
 # =========================
 # Docker
