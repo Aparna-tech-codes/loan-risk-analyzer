@@ -1,5 +1,13 @@
 # Loan Risk Analyzer
 
+![CI](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/ci.yml/badge.svg)
+
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+
+![License](https://img.shields.io/badge/license-MIT-green)
+
+![PNPM](https://img.shields.io/badge/PNPM-workspace-orange)
+
 A modern TypeScript-based loan risk analysis engine with plugin architecture, hooks system, HTTP API support, and extensible rule processing.
 
 Built with:
@@ -26,6 +34,24 @@ Built with:
 - Fully typed with TypeScript
 
 ---
+# Quick Start
+
+```bash
+pnpm install
+pnpm build
+pnpm test
+
+# Architecture
+
+This repository follows a modular monorepo architecture using TurboRepo and PNPM workspaces.
+
+Each package is independently buildable, type-safe, and publishable to npm.
+
+The system is designed for:
+- extensibility
+- plugin-based rule processing
+- scalable risk evaluation
+- enterprise TypeScript development workflows
 
 # Project Structure
 
@@ -103,7 +129,7 @@ Features:
 ## Clone Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/loan-risk-analyzer.git
+git clone https://github.com/Aparna-tech-codes/loan-risk-analyzer.git
 ```
 
 ---
@@ -156,7 +182,7 @@ pnpm coverage
 import { calculateRisk } from "@loan-risk/core";
 
 const result = await calculateRisk({
-  fullName: "Aparna Nikam",
+  fullName: "full name",
 
   age: 28,
 
