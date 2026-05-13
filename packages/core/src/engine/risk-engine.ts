@@ -53,7 +53,7 @@ export async function calculateRisk(
   // ==============================
 
   for (const rule of blockerRules) {
-    logger?.debug(`Running blocker rule: ${rule.name}`);
+    logger?.debug?.(`Running rule: ${rule.name}`);
     const result = await rule.execute(applicant, config);
 
     explanations.push({
@@ -92,7 +92,7 @@ export async function calculateRisk(
 
   const results = await Promise.all(
     normalRules.map(async (rule) => {
-      logger?.debug(`Running rule: ${rule.name}`);
+      logger?.debug?.(`Running rule: ${rule.name}`);
       const result = await rule.execute(applicant, config);
 
       return {
