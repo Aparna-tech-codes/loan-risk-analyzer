@@ -182,7 +182,7 @@ pnpm coverage
 import { calculateRisk } from "@loan-risk/core";
 
 const result = await calculateRisk({
-  fullName: "full name",
+  fullName: "jhon jhon",
 
   age: 28,
 
