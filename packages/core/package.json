@@ -1,24 +1,25 @@
 {
   "name": "@loan-risk/core",
   "version": "1.0.0",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+
   "exports": {
-  ".": {
-    "types": "./dist/src/index.d.ts",
-    "default": "./dist/src/index.js"
-  }
-},
-  "files": [
-    "dist"
-  ],
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+
+  "files": ["dist"],
+
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+   "typecheck": "tsc -b --noEmit",
+   "lint": "eslint src --ext .ts"
   },
-  "dependencies": {
-    "@loan-risk/logger": "workspace:*"
-  },
+
   "publishConfig": {
     "access": "public"
   }

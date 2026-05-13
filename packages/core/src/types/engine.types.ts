@@ -2,8 +2,12 @@ import { RiskRule } from "./rule.types";
 
 import { EngineHooks } from "./hook.types";
 
-import { Logger } from "@loan-risk/logger";
-
+export interface Logger {
+  info(message: string): void;
+  warn(message: string): void;
+  error(message: string): void;
+  debug?(message: string): void;
+}
 export interface EngineOptions {
   customRules?: RiskRule[];
 
