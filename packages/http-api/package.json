@@ -1,7 +1,7 @@
 {
   "name": "@loan-risk/http-api",
 
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "description": "Express HTTP API for loan risk analysis engine",
 
