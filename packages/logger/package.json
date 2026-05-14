@@ -1,6 +1,6 @@
 {
   "name": "@loan-risk/logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
 
   "description": "Reusable TypeScript logger package for the loan risk analyzer ecosystem",
 
