@@ -2,11 +2,21 @@
 
 ![CI](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/ci.yml/badge.svg)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
 
-![License](https://img.shields.io/badge/license-MIT-green)
+![TurboRepo](https://img.shields.io/badge/TurboRepo-Monorepo-red)
 
-![PNPM](https://img.shields.io/badge/PNPM-workspace-orange)
+![pnpm](https://img.shields.io/badge/pnpm-workspace-orange)
+
+![npm](https://img.shields.io/npm/v/@loan-risk/core)
+
+## npm Packages
+
+- [@loan-risk/core](https://www.npmjs.com/package/@loan-risk/core)
+- [@loan-risk/logger](https://www.npmjs.com/package/@loan-risk/logger)
+- [@loan-risk/http-api](https://www.npmjs.com/package/@loan-risk/http-api)
 
 A modern TypeScript-based loan risk analysis engine with plugin architecture, hooks system, HTTP API support, and extensible rule processing.
 
@@ -40,7 +50,7 @@ Built with:
 pnpm install
 pnpm build
 pnpm test
-
+```
 # Architecture
 
 This repository follows a modular monorepo architecture using TurboRepo and PNPM workspaces.
@@ -371,14 +381,9 @@ This repository is an independent personal open-source project and has no relati
 
 ---
 
+
 # License
 
-MIT License
+MIT © Aparna Nikam
 
-Copyright (c) 2026 Aparna Nikam
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction.
-
-See the LICENSE file for full details.
+See [LICENSE](./LICENSE)
