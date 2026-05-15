@@ -33,7 +33,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
-    "typecheck": "tsc -b --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts"
   },
 
