@@ -1,25 +1,17 @@
 {
   "name": "@loan-risk/http-api",
-
   "version": "1.0.1",
-
   "description": "Express HTTP API for loan risk analysis engine",
-
   "license": "MIT",
-
   "author": "Aparna Nikam",
-
   "homepage": "https://github.com/Aparna-tech-codes/loan-risk-analyzer",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer.git"
   },
-
   "bugs": {
     "url": "https://github.com/Aparna-tech-codes/loan-risk-analyzer/issues"
   },
-
   "keywords": [
     "express",
     "loan-risk",
@@ -27,27 +19,25 @@
     "typescript",
     "swagger"
   ],
-
   "main": "dist/server.js",
-
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src --ext .ts"
   },
-
   "dependencies": {
     "@loan-risk/core": "workspace:*",
     "@loan-risk/logger": "workspace:*",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-rate-limit": "^8.5.2",
+    "helmet": "^8.1.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "zod": "^4.4.3"
   },
-
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
