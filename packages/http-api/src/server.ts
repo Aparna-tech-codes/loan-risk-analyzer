@@ -14,6 +14,8 @@ import swaggerUi from "swagger-ui-express";
 
 import { swaggerSpec } from "./swagger";
 
+import { loanApplicationSchema } from "./validation/loan-application.schema";
+import { ZodError } from "zod";
 const app = express();
 
 const logger = new Logger({
@@ -78,8 +80,10 @@ app.post(
     try {
       logger.info("Risk analyze request received");
 
+      const validatedData = loanApplicationSchema.parse(req.body);
+
       const result = await calculateRisk(
-        req.body,
+        validatedData,
 
         undefined,
 
@@ -94,6 +98,14 @@ app.post(
       });
     } catch (error) {
       logger.error("Risk analysis failed");
+
+      if (error instanceof ZodError) {
+        return res.status(400).json({
+          success: false,
+          error: "Validation failed",
+          details: error.flatten(),
+        });
+      }
 
       res.status(500).json({
         success: false,
