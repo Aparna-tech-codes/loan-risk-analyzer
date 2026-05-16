@@ -2,53 +2,49 @@ import { NextFunction, Request, Response } from "express";
 
 import { ZodError } from "zod";
 
+import { Logger } from "@loan-risk/logger";
+
+import { sendErrorResponse } from "../utils/api-response";
+
+import { ERROR_CODES } from "../constants/error-codes";
+
+const logger = new Logger({
+  debug: true,
+});
+
 export function errorHandlerMiddleware(
   error: unknown,
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction,
 ) {
-  const requestId = req.headers["x-request-id"];
+  logger.error("Request failed");
 
   if (error instanceof ZodError) {
-    return res.status(400).json({
-      success: false,
-
-      requestId,
-
-      error: {
-        code: "VALIDATION_ERROR",
-
-        message: "Validation failed",
-
-        details: error.flatten(),
-      },
-    });
+    return sendErrorResponse(
+      res,
+      "Validation failed",
+      400,
+      error.flatten(),
+      ERROR_CODES.VALIDATION_ERROR,
+    );
   }
 
   if (error instanceof Error) {
-    return res.status(500).json({
-      success: false,
-
-      requestId,
-
-      error: {
-        code: "INTERNAL_SERVER_ERROR",
-
-        message: error.message,
-      },
-    });
+    return sendErrorResponse(
+      res,
+      error.message,
+      500,
+      undefined,
+      ERROR_CODES.INTERNAL_SERVER_ERROR,
+    );
   }
 
-  return res.status(500).json({
-    success: false,
-
-    requestId,
-
-    error: {
-      code: "UNKNOWN_ERROR",
-
-      message: "Internal server error",
-    },
-  });
+  return sendErrorResponse(
+    res,
+    "Unknown server error",
+    500,
+    undefined,
+    ERROR_CODES.INTERNAL_SERVER_ERROR,
+  );
 }

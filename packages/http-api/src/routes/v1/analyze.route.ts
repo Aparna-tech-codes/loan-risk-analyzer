@@ -5,6 +5,9 @@ import { calculateRisk } from "@loan-risk/core";
 import { Logger } from "@loan-risk/logger";
 
 import { loanApplicationSchema } from "../../validation/loan-application.schema";
+
+import { sendSuccessResponse } from "../../utils/api-response";
+
 const router: Router = Router();
 
 const logger = new Logger({
@@ -18,12 +21,15 @@ const logger = new Logger({
  *     summary: Analyze loan applicant risk
  *     tags:
  *       - Risk Analysis
+ *
  *     requestBody:
  *       required: true
+ *
  *       content:
  *         application/json:
  *           schema:
  *             type: object
+ *
  *             required:
  *               - fullName
  *               - age
@@ -32,6 +38,7 @@ const logger = new Logger({
  *               - requestedLoanAmount
  *               - creditScore
  *               - employmentType
+ *
  *             properties:
  *               fullName:
  *                 type: string
@@ -62,11 +69,66 @@ const logger = new Logger({
  *                 enum:
  *                   - SALARIED
  *                   - SELF_EMPLOYED
+ *
  *                 example: SALARIED
  *
  *     responses:
  *       200:
- *         description: Risk analysis completed successfully
+ *         description: Risk analysis successful
+ *
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *
+ *                 timestamp:
+ *                   type: string
+ *                   example: 2026-05-16T10:30:00.000Z
+ *
+ *                 requestId:
+ *                   type: string
+ *                   example: req_123456789
+ *
+ *                 data:
+ *                   type: object
+ *
+ *                   properties:
+ *                     score:
+ *                       type: number
+ *                       example: 100
+ *
+ *                     riskLevel:
+ *                       type: string
+ *                       example: LOW
+ *
+ *                     approved:
+ *                       type: boolean
+ *                       example: true
+ *
+ *                     reasons:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *
+ *                     explanations:
+ *                       type: array
+ *
+ *                       items:
+ *                         type: object
+ *
+ *                         properties:
+ *                           rule:
+ *                             type: string
+ *                             example: CREDIT_SCORE_RULE
+ *
+ *                           impact:
+ *                             type: number
+ *                             example: 20
  *
  *       400:
  *         description: Validation failed
@@ -86,10 +148,7 @@ router.post(
         logger,
       });
 
-      res.status(200).json({
-        success: true,
-        data: result,
-      });
+      return sendSuccessResponse(res, result);
     } catch (error) {
       next(error);
     }

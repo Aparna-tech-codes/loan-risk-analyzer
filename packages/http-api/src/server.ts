@@ -29,13 +29,22 @@ import healthRoutes from "./routes/v1/health.route";
 
 dotenvSafe.config();
 
+/**
+ * Express App
+ */
 const app = express();
 
-app.disable("x-powered-by");
-
+/**
+ * Logger
+ */
 const logger = new Logger({
   debug: true,
 });
+
+/**
+ * Security
+ */
+app.disable("x-powered-by");
 
 /**
  * Core Middlewares
@@ -52,6 +61,9 @@ app.use(
   }),
 );
 
+/**
+ * Request Tracking
+ */
 app.use(requestIdMiddleware);
 
 app.use(requestLoggerMiddleware);
@@ -66,7 +78,30 @@ app.use("/api/v1", analyzeRoutes);
 /**
  * Swagger Documentation
  */
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    explorer: true,
+
+    customSiteTitle: "Loan Risk Analyzer API Docs",
+  }),
+);
+
+/**
+ * Root Endpoint
+ */
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    success: true,
+
+    message: "Loan Risk Analyzer API",
+
+    documentation: "/docs",
+
+    version: "v1",
+  });
+});
 
 /**
  * 404 Handler
@@ -78,6 +113,9 @@ app.use(notFoundMiddleware);
  */
 app.use(errorHandlerMiddleware);
 
+/**
+ * Server
+ */
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
