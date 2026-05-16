@@ -1,11 +1,10 @@
-import { Router } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 
 import { calculateRisk } from "@loan-risk/core";
 
 import { Logger } from "@loan-risk/logger";
 
 import { loanApplicationSchema } from "../../validation/loan-application.schema";
-
 const router: Router = Router();
 
 const logger = new Logger({
@@ -40,28 +39,22 @@ const logger = new Logger({
  *
  *               age:
  *                 type: number
- *                 minimum: 18
  *                 example: 28
  *
  *               monthlyIncome:
  *                 type: number
- *                 minimum: 1
  *                 example: 90000
  *
  *               monthlyEMI:
  *                 type: number
- *                 minimum: 0
  *                 example: 15000
  *
  *               requestedLoanAmount:
  *                 type: number
- *                 minimum: 1000
  *                 example: 500000
  *
  *               creditScore:
  *                 type: number
- *                 minimum: 300
- *                 maximum: 900
  *                 example: 760
  *
  *               employmentType:
@@ -81,23 +74,26 @@ const logger = new Logger({
  *       500:
  *         description: Internal server error
  */
-router.post("/", async (req, res, next) => {
-  try {
-    logger.info("Risk analyze request received");
+router.post(
+  "/analyze",
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      logger.info("Risk analyze request received");
 
-    const validatedData = loanApplicationSchema.parse(req.body);
+      const validatedData = loanApplicationSchema.parse(req.body);
 
-    const result = await calculateRisk(validatedData, undefined, {
-      logger,
-    });
+      const result = await calculateRisk(validatedData, undefined, {
+        logger,
+      });
 
-    res.json({
-      success: true,
-      data: result,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+      res.status(200).json({
+        success: true,
+        data: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export default router;

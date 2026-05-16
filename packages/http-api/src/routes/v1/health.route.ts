@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { Router, Request, Response } from "express";
 
 const router: Router = Router();
 
@@ -13,9 +13,8 @@ const router: Router = Router();
  *       200:
  *         description: API running successfully
  */
-
-router.get("/", (_req, res) => {
-  res.json({
+router.get("/health", (_req: Request, res: Response) => {
+  res.status(200).json({
     success: true,
     message: "API Running",
   });

@@ -1,14 +1,12 @@
 import swaggerJsdoc from "swagger-jsdoc";
 
-const options = {
+export const swaggerSpec = swaggerJsdoc({
   definition: {
     openapi: "3.0.0",
 
     info: {
       title: "Loan Risk Analyzer API",
-
       version: "1.0.0",
-
       description: "Professional loan risk analysis engine API",
     },
 
@@ -19,7 +17,5 @@ const options = {
     ],
   },
 
-  apis: ["./src/server.ts"],
-};
-
-export const swaggerSpec = swaggerJsdoc(options);
+  apis: ["./src/routes/**/*.ts"],
+});
