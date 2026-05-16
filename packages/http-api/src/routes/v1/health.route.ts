@@ -2,6 +2,10 @@ import { Router, Request, Response } from "express";
 
 import { sendSuccessResponse } from "../../utils/api-response";
 
+import { validateRequest } from "../../middleware/validation.middleware";
+
+import { healthQuerySchema } from "../../validation/health-query.schema";
+
 const router: Router = Router();
 
 /**
@@ -38,10 +42,16 @@ const router: Router = Router();
  *                       type: string
  *                       example: API Running
  */
-router.get("/health", (_req: Request, res: Response) => {
-  return sendSuccessResponse(res, {
-    message: "API Running",
-  });
-});
+router.get(
+  "/health",
+
+  validateRequest(healthQuerySchema, "query"),
+
+  (_req: Request, res: Response) => {
+    return sendSuccessResponse(res, {
+      message: "API Running",
+    });
+  },
+);
 
 export default router;
