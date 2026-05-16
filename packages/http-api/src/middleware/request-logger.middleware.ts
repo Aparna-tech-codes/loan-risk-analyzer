@@ -13,11 +13,15 @@ export const requestLoggerMiddleware = (
 ) => {
   const start = Date.now();
 
+  logger.info(
+    `[${req.requestId}] Incoming Request: ${req.method} ${req.originalUrl}`,
+  );
+
   res.on("finish", () => {
     const duration = Date.now() - start;
 
     logger.info(
-      `${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`,
+      `[${req.requestId}] ${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`,
     );
   });
 

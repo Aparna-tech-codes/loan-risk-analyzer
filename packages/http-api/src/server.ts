@@ -20,6 +20,8 @@ import { notFoundMiddleware } from "./middleware/not-found.middleware";
 
 import { requestLoggerMiddleware } from "./middleware/request-logger.middleware";
 
+import { requestIdMiddleware } from "./middleware/request-id.middleware";
+
 dotenvSafe.config();
 
 const app = express();
@@ -31,6 +33,8 @@ const logger = new Logger({
 app.use(cors());
 
 app.use(express.json());
+
+app.use(requestIdMiddleware);
 
 app.use(requestLoggerMiddleware);
 
