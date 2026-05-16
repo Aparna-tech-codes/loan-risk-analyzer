@@ -18,6 +18,8 @@ import { errorHandlerMiddleware } from "./middleware/error-handler.middleware";
 
 import { notFoundMiddleware } from "./middleware/not-found.middleware";
 
+import { requestLoggerMiddleware } from "./middleware/request-logger.middleware";
+
 dotenvSafe.config();
 
 const app = express();
@@ -29,6 +31,8 @@ const logger = new Logger({
 app.use(cors());
 
 app.use(express.json());
+
+app.use(requestLoggerMiddleware);
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
