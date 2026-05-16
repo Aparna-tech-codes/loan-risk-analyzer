@@ -1,7 +1,15 @@
-export type LogLevel = "INFO" | "WARN" | "ERROR" | "DEBUG";
+export type LogLevel = "info" | "warn" | "error" | "debug";
 
-export interface LoggerOptions {
-  debug?: boolean;
+export interface LogMeta {
+  requestId?: string;
 
-  enableTimestamp?: boolean;
+  method?: string;
+
+  url?: string;
+
+  statusCode?: number;
+
+  duration?: number;
+
+  [key: string]: unknown;
 }
