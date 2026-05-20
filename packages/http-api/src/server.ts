@@ -23,9 +23,7 @@ import {
   rateLimiterMiddleware,
 } from "./middleware/security.middleware";
 
-import analyzeRoutes from "./routes/v1/analyze.route";
-
-import healthRoutes from "./routes/v1/health.route";
+import { registerRoutes } from "./routes/v1/index";
 
 dotenvSafe.config();
 
@@ -71,9 +69,7 @@ app.use(requestLoggerMiddleware);
 /**
  * API Routes
  */
-app.use("/api/v1", healthRoutes);
-
-app.use("/api/v1", analyzeRoutes);
+registerRoutes(app);
 
 /**
  * Swagger Documentation

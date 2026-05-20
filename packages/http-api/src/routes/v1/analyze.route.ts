@@ -23,11 +23,32 @@ const logger = new Logger({
  *     summary: Analyze loan applicant risk
  *     tags:
  *       - Risk Analysis
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/AnalyzeRequest'
+ *
+ *     responses:
+ *       200:
+ *         description: Risk analysis completed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AnalyzeSuccessResponse'
+ *
+ *       400:
+ *         description: Validation failed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.post(
   "/analyze",
 
-  validateRequest(loanApplicationSchema),
+  validateRequest(loanApplicationSchema, "body"),
 
   async (req: Request, res: Response, next: NextFunction) => {
     try {
