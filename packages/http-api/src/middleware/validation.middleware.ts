@@ -1,20 +1,15 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 
-import { ZodSchema } from "zod";
+import { ZodObject, ZodError } from "zod";
 
-type ValidationTarget = "body" | "query" | "params";
-
-export function validateRequest(
-  schema: ZodSchema,
-  target: ValidationTarget = "body",
-) {
-  return (req: Request, _res: Response, next: NextFunction) => {
+export const validateRequest =
+  (schema: ZodObject, target: "body" | "query" | "params" = "body") =>
+  (req: Request, _res: Response, next: NextFunction) => {
     try {
-      req[target] = schema.parse(req[target]);
+      schema.parse(req[target]);
 
       next();
     } catch (error) {
       next(error);
     }
   };
-}
