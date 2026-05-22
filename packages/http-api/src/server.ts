@@ -6,15 +6,11 @@ import dotenvSafe from "dotenv-safe";
 
 import swaggerUi from "swagger-ui-express";
 
-import { Logger } from "@loan-risk/logger";
-
 import { swaggerSpec } from "./swagger";
 
 import { errorHandlerMiddleware } from "./middleware/error-handler.middleware";
 
 import { notFoundMiddleware } from "./middleware/not-found.middleware";
-
-import { requestLoggerMiddleware } from "./middleware/request-logger.middleware";
 
 import { requestIdMiddleware } from "./middleware/request-id.middleware";
 
@@ -25,19 +21,16 @@ import {
 
 import { registerRoutes } from "./routes/v1/index";
 
+import { logger } from "./services/logger.service";
+
+import { httpLoggerMiddleware } from "./middleware/http-logger.middleware";
+
 dotenvSafe.config();
 
 /**
  * Express App
  */
 const app = express();
-
-/**
- * Logger
- */
-const logger = new Logger({
-  debug: true,
-});
 
 /**
  * Security
@@ -64,7 +57,10 @@ app.use(
  */
 app.use(requestIdMiddleware);
 
-app.use(requestLoggerMiddleware);
+/**
+ * Structured HTTP Logging
+ */
+app.use(httpLoggerMiddleware);
 
 /**
  * API Routes
@@ -115,7 +111,17 @@ app.use(errorHandlerMiddleware);
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  logger.info(`🚀 HTTP API running on port ${PORT}`);
+  logger.info(
+    {
+      port: PORT,
+    },
+    "HTTP API started",
+  );
 
-  logger.info(`📚 Swagger Docs: http://localhost:${PORT}/docs`);
+  logger.info(
+    {
+      docs: `http://localhost:${PORT}/docs`,
+    },
+    "Swagger docs available",
+  );
 });
