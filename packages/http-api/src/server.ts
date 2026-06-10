@@ -25,7 +25,7 @@ import { registerRoutes } from "./routes/v1/index";
 import { logger } from "./services/logger.service";
 
 import { httpLoggerMiddleware } from "./middleware/http-logger.middleware";
-
+import { connectRedis } from "./services/cache.service";
 dotenvSafe.config();
 
 /**
@@ -111,18 +111,24 @@ app.use(errorHandlerMiddleware);
  */
 const PORT = process.env.PORT || 4000;
 
-app.listen(PORT, () => {
-  logger.info(
-    {
-      port: PORT,
-    },
-    "HTTP API started",
-  );
+async function bootstrap() {
+  await connectRedis();
 
-  logger.info(
-    {
-      docs: `http://localhost:${PORT}/docs`,
-    },
-    "Swagger docs available",
-  );
-});
+  app.listen(PORT, () => {
+    logger.info(
+      {
+        port: PORT,
+      },
+      "HTTP API started",
+    );
+
+    logger.info(
+      {
+        docs: `http://localhost:${PORT}/docs`,
+      },
+      "Swagger docs available",
+    );
+  });
+}
+
+bootstrap();
