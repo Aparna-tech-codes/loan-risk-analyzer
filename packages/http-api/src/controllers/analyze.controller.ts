@@ -7,6 +7,9 @@ import { sendSuccessResponse } from "../utils/api-response";
 import { performRiskAnalysis } from "../services/risk-analysis.service";
 
 import { AuditService } from "../services/audit.service";
+import { getCache, setCache } from "../services/cache.service";
+
+import { generateCacheKey } from "../utils/cache-key";
 
 const auditService = new AuditService();
 export const analyzeRisk = async (
@@ -17,18 +20,25 @@ export const analyzeRisk = async (
   try {
     const validatedData = loanApplicationSchema.parse(req.body);
 
-    auditService.log("RISK_ANALYSIS_STARTED", validatedData);
+    const cacheKey = generateCacheKey(validatedData);
+
+    const cachedResult = await getCache(cacheKey);
+
+    if (cachedResult) {
+      return sendSuccessResponse(res, {
+        ...cachedResult,
+        cached: true,
+      });
+    }
 
     const result = await performRiskAnalysis(validatedData);
 
-    auditService.log("RISK_ANALYSIS_COMPLETED", {
-      applicant: validatedData.fullName,
-      score: result.score,
-      riskLevel: result.riskLevel,
-      approved: result.approved,
-    });
+    await setCache(cacheKey, result, 300);
 
-    return sendSuccessResponse(res, result);
+    return sendSuccessResponse(res, {
+      ...result,
+      cached: false,
+    });
   } catch (error) {
     next(error);
   }
