@@ -1,6 +1,10 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 
-import { sendSuccessResponse } from "../../utils/api-response";
+import {
+  healthCheck,
+  readinessCheck,
+  livenessCheck,
+} from "../../controllers/health.controller";
 
 const router: Router = Router();
 
@@ -8,40 +12,41 @@ const router: Router = Router();
  * @swagger
  * /api/v1/health:
  *   get:
- *     summary: Health check endpoint
  *     tags:
- *       - System
+ *       - Health
+ *     summary: Health Check
  *     responses:
  *       200:
- *         description: API running successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *
- *                 timestamp:
- *                   type: string
- *                   example: 2026-05-20T12:00:00.000Z
- *
- *                 requestId:
- *                   type: string
- *                   example: req_123456789
- *
- *                 data:
- *                   type: object
- *                   properties:
- *                     message:
- *                       type: string
- *                       example: API Running
+ *         description: Service is healthy
  */
-router.get("/health", (_req: Request, res: Response) => {
-  return sendSuccessResponse(res, {
-    message: "API Running",
-  });
-});
+router.get("/health", healthCheck);
+
+/**
+ * @swagger
+ * /api/v1/ready:
+ *   get:
+ *     tags:
+ *       - Health
+ *     summary: Readiness Check
+ *     responses:
+ *       200:
+ *         description: Service ready
+ *       503:
+ *         description: Service not ready
+ */
+router.get("/ready", readinessCheck);
+
+/**
+ * @swagger
+ * /api/v1/live:
+ *   get:
+ *     tags:
+ *       - Health
+ *     summary: Liveness Check
+ *     responses:
+ *       200:
+ *         description: Service alive
+ */
+router.get("/live", livenessCheck);
 
 export default router;
