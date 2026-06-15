@@ -9,3 +9,9 @@ const sdk = new NodeSDK({
 sdk.start();
 
 console.log("OpenTelemetry initialized");
+
+process.on("SIGTERM", async () => {
+  await sdk.shutdown();
+
+  process.exit(0);
+});
