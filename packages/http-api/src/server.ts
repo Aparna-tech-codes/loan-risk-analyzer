@@ -26,6 +26,7 @@ import { logger } from "./services/logger.service";
 
 import { httpLoggerMiddleware } from "./middleware/http-logger.middleware";
 import { connectRedis } from "./services/cache.service";
+import { metricsMiddleware } from "./middleware/metrics.middleware";
 dotenvSafe.config();
 
 /**
@@ -62,6 +63,8 @@ app.use(requestIdMiddleware);
  * Structured HTTP Logging
  */
 app.use(httpLoggerMiddleware);
+
+app.use(metricsMiddleware);
 
 /**
  * API Routes
