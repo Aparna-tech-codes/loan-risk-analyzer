@@ -27,8 +27,12 @@ import { logger } from "./services/logger.service";
 import { httpLoggerMiddleware } from "./middleware/http-logger.middleware";
 import { connectRedis } from "./services/cache.service";
 import { metricsMiddleware } from "./middleware/metrics.middleware";
-dotenvSafe.config();
+import compression from "compression";
 
+dotenvSafe.config({
+  path: "packages/http-api/.env",
+  example: "packages/http-api/.env.example",
+});
 /**
  * Express App
  */
@@ -43,6 +47,8 @@ app.disable("x-powered-by");
  * Core Middlewares
  */
 app.use(cors());
+
+app.use(compression());
 
 app.use(helmetMiddleware);
 
