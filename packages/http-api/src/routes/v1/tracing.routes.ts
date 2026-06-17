@@ -7,12 +7,9 @@ const router: Router = Router();
  * @swagger
  * /api/v1/trace:
  *   get:
- *     summary: Trace test endpoint
  *     tags:
  *       - Tracing
- *     responses:
- *       200:
- *         description: Trace created
+ *     summary: Trace test endpoint
  */
 router.get("/trace", async (_req, res) => {
   const tracer = trace.getTracer("loan-risk-api");

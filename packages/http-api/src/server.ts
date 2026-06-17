@@ -28,10 +28,10 @@ import { httpLoggerMiddleware } from "./middleware/http-logger.middleware";
 import { connectRedis } from "./services/cache.service";
 import { metricsMiddleware } from "./middleware/metrics.middleware";
 import compression from "compression";
+import { auditMiddleware } from "./middleware/audit.middleware";
 
 dotenvSafe.config({
-  path: "packages/http-api/.env",
-  example: "packages/http-api/.env.example",
+  allowEmptyValues: true,
 });
 /**
  * Express App
@@ -69,7 +69,7 @@ app.use(requestIdMiddleware);
  * Structured HTTP Logging
  */
 app.use(httpLoggerMiddleware);
-
+app.use(auditMiddleware);
 app.use(metricsMiddleware);
 
 /**
@@ -80,6 +80,11 @@ registerRoutes(app);
 /**
  * Swagger Documentation
  */
+
+app.get("/docs-json", (_req, res) => {
+  res.json(swaggerSpec);
+});
+
 app.use(
   "/docs",
   swaggerUi.serve,
