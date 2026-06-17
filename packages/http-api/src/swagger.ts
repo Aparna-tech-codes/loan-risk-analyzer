@@ -37,15 +37,28 @@ export const swaggerSpec = swaggerJsdoc({
 
     tags: [
       {
-        name: "System",
-
-        description: "System health and monitoring APIs",
+        name: "Health",
+        description: "Health and readiness endpoints",
       },
-
       {
         name: "Risk Analysis",
-
         description: "Loan risk analysis operations",
+      },
+      {
+        name: "Audit",
+        description: "Audit log APIs",
+      },
+      {
+        name: "Metrics",
+        description: "Monitoring metrics",
+      },
+      {
+        name: "Tracing",
+        description: "OpenTelemetry tracing",
+      },
+      {
+        name: "Meta",
+        description: "API metadata",
       },
     ],
 
@@ -236,3 +249,7 @@ export const swaggerSpec = swaggerJsdoc({
 
   apis: ["./src/routes/**/*.ts", "./src/routes/*.ts"],
 });
+
+const spec = swaggerSpec as any;
+
+console.log("Swagger Paths:", spec.paths);

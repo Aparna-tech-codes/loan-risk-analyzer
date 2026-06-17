@@ -7,7 +7,7 @@ import metaRoutes from "./meta.route";
 import cacheRoutes from "./cache.routes";
 import metricsRoutes from "./metrics.routes";
 import tracingRoutes from "./tracing.routes";
-
+import auditRoutes from "./audit.route";
 export const registerRoutes = (app: Express) => {
   app.use("/api/v1", healthRoutes);
 
@@ -17,4 +17,5 @@ export const registerRoutes = (app: Express) => {
   app.use("/api/v1", cacheRoutes);
   app.use("/api/v1", metricsRoutes);
   app.use("/api/v1", tracingRoutes);
+  app.use("/api/v1", auditRoutes);
 };
