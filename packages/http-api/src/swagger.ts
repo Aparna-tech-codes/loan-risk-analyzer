@@ -66,7 +66,6 @@ export const swaggerSpec = swaggerJsdoc({
       schemas: {
         AnalyzeRequest: {
           type: "object",
-
           required: [
             "fullName",
             "age",
@@ -76,55 +75,34 @@ export const swaggerSpec = swaggerJsdoc({
             "creditScore",
             "employmentType",
           ],
-
           properties: {
             fullName: {
               type: "string",
-
               example: "Aparna Nikam",
             },
-
             age: {
               type: "number",
-
-              minimum: 18,
-
-              example: 28,
+              example: 30,
             },
-
             monthlyIncome: {
               type: "number",
-
-              example: 90000,
+              example: 75000,
             },
-
             monthlyEMI: {
               type: "number",
-
               example: 15000,
             },
-
             requestedLoanAmount: {
               type: "number",
-
               example: 500000,
             },
-
             creditScore: {
               type: "number",
-
-              minimum: 300,
-
-              maximum: 900,
-
-              example: 760,
+              example: 780,
             },
-
             employmentType: {
               type: "string",
-
               enum: ["SALARIED", "SELF_EMPLOYED"],
-
               example: "SALARIED",
             },
           },
