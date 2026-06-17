@@ -6,12 +6,10 @@ import { sendSuccessResponse } from "../utils/api-response";
 
 import { performRiskAnalysis } from "../services/risk-analysis.service";
 
-import { AuditService } from "../services/audit.service";
 import { getCache, setCache } from "../services/cache.service";
 
 import { generateCacheKey } from "../utils/cache-key";
 
-const auditService = new AuditService();
 export const analyzeRisk = async (
   req: Request,
   res: Response,
