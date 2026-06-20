@@ -92,3 +92,7 @@ export const disconnectRedis = async () => {
     console.error("Redis disconnect failed", error);
   }
 };
+
+export const incrementCache = async (key: string) => {
+  return redisClient.incr(key);
+};
