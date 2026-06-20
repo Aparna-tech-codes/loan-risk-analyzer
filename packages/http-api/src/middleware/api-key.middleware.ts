@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 
 import { trackUsage } from "../services/usage.service";
+import { checkUsageLimit } from "../services/limit.service";
 
 export const apiKeyMiddleware = async (
   req: Request,
@@ -29,6 +30,20 @@ export const apiKeyMiddleware = async (
           code: "INVALID_API_KEY",
           message: "API key is invalid",
         },
+      });
+    }
+
+    const limitInfo = await checkUsageLimit(apiKey);
+
+    if (limitInfo.exceeded) {
+      return res.status(429).json({
+        success: false,
+        error: {
+          code: "FREE_TIER_LIMIT_EXCEEDED",
+          message: "Daily API limit reached",
+        },
+        usage: limitInfo.usage,
+        limit: limitInfo.limit,
       });
     }
 
