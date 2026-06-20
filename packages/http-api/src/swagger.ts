@@ -63,6 +63,13 @@ export const swaggerSpec = swaggerJsdoc({
     ],
 
     components: {
+      securitySchemes: {
+        ApiKeyAuth: {
+          type: "apiKey",
+          in: "header",
+          name: "x-api-key",
+        },
+      },
       schemas: {
         AnalyzeRequest: {
           type: "object",

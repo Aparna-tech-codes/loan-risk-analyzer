@@ -10,6 +10,8 @@ import { sendSuccessResponse } from "../../utils/api-response";
 
 import { validateRequest } from "../../middleware/validation.middleware";
 
+import { apiKeyMiddleware } from "../../middleware/api-key.middleware";
+
 const router: Router = Router();
 
 const logger = new Logger({
@@ -23,6 +25,8 @@ const logger = new Logger({
  *     summary: Analyze loan applicant risk
  *     tags:
  *       - Risk Analysis
+ *     security:
+ *       - ApiKeyAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -48,9 +52,11 @@ const logger = new Logger({
 router.post(
   "/analyze",
 
+  apiKeyMiddleware,
+
   validateRequest(loanApplicationSchema, "body"),
 
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req, res, next) => {
     try {
       logger.info("Risk analyze request received");
 
