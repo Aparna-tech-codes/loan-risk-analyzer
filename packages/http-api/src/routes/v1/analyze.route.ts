@@ -48,6 +48,8 @@ const logger = new Logger({
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
+ * 429:
+ * description: Daily limit exceeded
  */
 router.post(
   "/analyze",
