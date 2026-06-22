@@ -3,6 +3,9 @@
 Express HTTP API for Loan Risk Analyzer.
 
 ![npm](https://img.shields.io/npm/v/@loan-risk/http-api)
+![Build](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/ci.yml/badge.svg)
+
+![Release](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/release.yml/badge.svg)
 
 ---
 
