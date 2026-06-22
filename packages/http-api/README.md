@@ -3,13 +3,14 @@
 Express HTTP API for Loan Risk Analyzer.
 
 ![npm](https://img.shields.io/npm/v/@loan-risk/http-api)
+
 ![Build](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/ci.yml/badge.svg)
 
 ![Release](https://github.com/Aparna-tech-codes/loan-risk-analyzer/actions/workflows/release.yml/badge.svg)
 
 ---
 
-## Features
+# Features
 
 * Loan Risk Analysis API
 * Swagger Documentation
@@ -20,13 +21,14 @@ Express HTTP API for Loan Risk Analyzer.
 * API Key Authentication
 * Usage Tracking
 * Free Tier Limits
-* Docker Support
 * Request Compression
+* Docker Support
+* Docker Health Checks
 * TypeScript Support
 
 ---
 
-## Installation
+# Installation
 
 ```bash
 pnpm add @loan-risk/http-api
@@ -34,7 +36,7 @@ pnpm add @loan-risk/http-api
 
 ---
 
-## Environment Variables
+# Environment Variables
 
 ```env
 PORT=4000
@@ -46,7 +48,32 @@ API_KEYS=demo-key-1,demo-key-2
 
 ---
 
-## Start Development Server
+# Redis Setup
+
+Start Redis using Docker:
+
+```bash
+docker run -d \
+--name redis \
+-p 6379:6379 \
+redis:latest
+```
+
+Verify Redis:
+
+```bash
+docker exec -it redis redis-cli ping
+```
+
+Expected:
+
+```txt
+PONG
+```
+
+---
+
+# Start Development Server
 
 ```bash
 pnpm --filter @loan-risk/http-api dev
@@ -54,7 +81,7 @@ pnpm --filter @loan-risk/http-api dev
 
 ---
 
-## Swagger Documentation
+# Swagger Documentation
 
 ```txt
 http://localhost:4000/docs
@@ -62,47 +89,83 @@ http://localhost:4000/docs
 
 ---
 
-## Authentication
+# Authentication
 
-All protected APIs require:
+Protected endpoints require an API key.
+
+Example:
 
 ```http
-x-api-key: demo-key-1,demo-key-2
+x-api-key: demo-key-1
+```
+
+If no API key is provided:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "MISSING_API_KEY"
+  }
+}
 ```
 
 ---
 
-## Free Tier
+# Free Tier Limits
 
-Current free tier:
+Current plan:
 
 ```txt
 100 requests per day per API key
 ```
 
+When limit is exceeded:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "FREE_TIER_LIMIT_EXCEEDED"
+  }
+}
+```
+
 ---
 
-## API Endpoints
+# API Endpoints
 
-### Health
+## Health Check
 
 ```http
 GET /api/v1/health
 ```
 
-### Metrics
+---
+
+## Metrics
 
 ```http
 GET /api/v1/metrics
 ```
 
-### Usage
+---
+
+## Usage Statistics
 
 ```http
 GET /api/v1/usage/:apiKey
 ```
 
-### Analyze Risk
+Example:
+
+```http
+GET /api/v1/usage/demo-key-1
+```
+
+---
+
+## Analyze Loan Risk
 
 ```http
 POST /api/v1/analyze
@@ -111,7 +174,8 @@ POST /api/v1/analyze
 Headers:
 
 ```http
-x-api-key: demo-key-1,demo-key-2
+x-api-key: demo-key-1
+Content-Type: application/json
 ```
 
 Request:
@@ -143,15 +207,15 @@ Response:
 
 ---
 
-## Docker
+# Docker
 
-Build:
+Build Image:
 
 ```bash
 docker build -t loan-risk-api .
 ```
 
-Run:
+Run Container:
 
 ```bash
 docker run -d \
@@ -162,8 +226,59 @@ docker run -d \
 loan-risk-api
 ```
 
+Check Logs:
+
+```bash
+docker logs loan-risk-api
+```
+
+Health Check:
+
+```bash
+curl http://localhost:4000/api/v1/health
+```
+
 ---
 
-## License
+# CI/CD
 
-MIT
+GitHub Actions automatically runs:
+
+* Install
+* Type Check
+* Lint
+* Build
+* Tests
+
+on every Pull Request and Push.
+
+---
+
+# Automated Releases
+
+Release workflow automatically creates GitHub releases from tagged versions.
+
+Example:
+
+```bash
+git tag v1.0.2
+git push origin v1.0.2
+```
+
+---
+
+# Automated npm Publishing
+
+Packages are automatically published to npm when a GitHub Release is published.
+
+Supported packages:
+
+* @loan-risk/core
+* @loan-risk/logger
+* @loan-risk/http-api
+
+---
+
+# License
+
+MIT © Aparna Nikam
