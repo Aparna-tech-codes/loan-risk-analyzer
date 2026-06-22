@@ -1,6 +1,6 @@
 {
   "name": "@loan-risk/http-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Express HTTP API for loan risk analysis engine",
   "license": "MIT",
   "author": "Aparna Nikam",

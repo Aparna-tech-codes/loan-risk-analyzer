@@ -1,6 +1,6 @@
 {
   "name": "@loan-risk/core",
-  "version": "1.0.3",
+  "version": "1.0.4",
 
   "description": "Core TypeScript loan risk analysis engine with plugin and hooks architecture",
 
