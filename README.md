@@ -11,6 +11,8 @@
 ![pnpm](https://img.shields.io/badge/pnpm-workspace-orange)
 
 ![npm](https://img.shields.io/npm/v/@loan-risk/core)
+![Release](https://img.shields.io/github/v/release/Aparna-tech-codes/loan-risk-analyzer)
+![npm](https://img.shields.io/npm/v/@loan-risk/http-api)
 
 ## npm Packages
 
@@ -32,16 +34,24 @@ Built with:
 
 # Features
 
-- Rule-based loan risk analysis
-- Plugin architecture
-- Hook system
-- Fraud detection support
-- Parallel rule execution
-- HTTP API package
-- Logger package
-- Automated testing
-- Monorepo architecture
-- Fully typed with TypeScript
+* Rule-based loan risk analysis
+* Plugin architecture
+* Hook system
+* Fraud detection support
+* Parallel rule execution
+* Express HTTP API
+* Swagger API documentation
+* API Key Authentication
+* Usage Tracking with Redis
+* Free Tier Request Limits
+* Logger package
+* Automated Testing
+* CI/CD Pipeline with GitHub Actions
+* Automated Release Workflow
+* Automated npm Package Publishing
+* Monorepo architecture with TurboRepo
+* Fully typed with TypeScript
+
 
 ---
 # Quick Start
@@ -128,9 +138,16 @@ Express-based HTTP API for exposing the analyzer.
 
 Features:
 
-- REST API
-- Health endpoint
-- Risk analysis endpoint
+
+- Loan Risk Analysis API
+- Swagger Documentation
+- Health Endpoint
+- API Key Authentication
+- Usage Tracking
+- Free Tier Limits
+- Redis Integration
+- Docker Support
+- TypeScript Support
 
 ---
 
@@ -295,6 +312,52 @@ GET /health
 ```http
 POST /analyze
 ```
+## Authentication
+
+Protected endpoints require:
+
+```http
+x-api-key: YOUR_API_KEY
+```
+
+Example:
+
+```bash
+curl -X POST http://localhost:4000/api/v1/analyze \
+-H "Content-Type: application/json" \
+-H "x-api-key: demo-key-1"
+```
+## Usage Endpoint
+
+```http
+GET /api/v1/usage/:apiKey
+```
+
+Example:
+
+```http
+GET /api/v1/usage/demo-key-1
+```
+
+## Free Tier Limits
+
+Default limit:
+
+```txt
+100 requests per API key
+```
+
+When the limit is exceeded:
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "USAGE_LIMIT_EXCEEDED",
+    "message": "Free tier limit exceeded"
+  }
+}
+```
 
 ### Request
 
@@ -360,19 +423,43 @@ Current tests:
 
 # CI/CD
 
-GitHub Actions workflow included.
+GitHub Actions workflows included.
 
-Automatically runs:
+## Continuous Integration
 
-- Install
-- Type checking
-- Build
+Runs on:
+
+- Push
+- Pull Request
+
+Checks:
+
+- Install Dependencies
+- Type Checking
+- Linting
+- Build Validation
 - Tests
 
-On every push and pull request.
+## Release Workflow
 
+Runs automatically when a GitHub Release is published.
+
+Features:
+
+- Build Validation
+- Release Verification
+- Automated Release Creation
+
+## Automated npm Publishing
+
+Publishes:
+
+- @loan-risk/core
+- @loan-risk/logger
+- @loan-risk/http-api
+
+through GitHub Actions using npm automation.
 ---
-
 # Open Source
 
 This project is open source under the MIT License.
