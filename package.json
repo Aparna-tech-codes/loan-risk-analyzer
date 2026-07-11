@@ -35,6 +35,7 @@
     "docker:down": "docker-compose down",
     "release": "changeset publish",
     "version-packages": "changeset version"
+    
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.0",
@@ -50,7 +51,7 @@
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "turbo": "^2.9.10",
+    "turbo": "^2.9.14",
     "typescript": "^5.9.3",
     "vitest": "^4.1.5"
   },
