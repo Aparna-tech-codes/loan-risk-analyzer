@@ -1,6 +1,7 @@
 import { LoanApplicant } from "./risk.types";
 
 import { RiskConfig } from "./risk-config.types";
+import { RuleMetadata } from "./metadata.types";
 
 export interface RuleResult {
   scoreImpact: number;
